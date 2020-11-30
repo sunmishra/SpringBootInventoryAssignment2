@@ -52,18 +52,20 @@ class SpringInventory1ApplicationTests {
 	}
 	
 //	@Test
-//	public void getSKUNameTest() {
-//		Catalog catalog = new Catalog(201,"Kitchen Products", "Daily Products", "bajaj", "bajaj Eletronics", new Supplier(6,"Shubham"));
-//		Supplier supplier = new Supplier(1,"Shubham");
-//		supplier.setCatalog(catalog);		
-//		when(supplierRepository.findById(1).get()).thenReturn(supplier);
-//		Supplier s = supplierRepository.findById(1).get();
-//		when(supplierRepository.findById(1)).thenReturn(Optional.of(supplier));
-//		Supplier s1 = supplierService.getSupplierById(1);
-//		assertNotNull(s);
-//		String name = s.getCatalog().getSkuName();
-//		assertEquals("Mixer", s.getCatalog().getSkuName());
-//	}
+// 	public void getSKUNameTest() {
+// 	Catalog catalog = new Catalog();
+// 		catalog.setbName("Bajaj");
+// 		catalog.setbDesc("Eletrical gadgets");
+// 		catalog.setSkuCode(101);
+// 		catalog.setSkuName("Mixer");
+// 		Supplier supplier = new Supplier(1,"John");
+// 		catalog.setSupplier(supplier);
+// 		supplier.setCatalog(catalog);
+// 		//Supplier s2 = supplierService.insertSupplier(supplier);
+// 		when(supplierRepository.findById(1).get()).thenReturn(supplier);
+// 		Supplier s1 = supplierService.getSupplierById(1);
+// 		assertEquals("Mixer",supplierService.getSupplierById(1).getCatalog().getSkuName());
+// 	}
 
 	
 	@Test
