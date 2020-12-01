@@ -36,28 +36,34 @@ class SpringInventory1ApplicationTests {
 	@MockBean
 	private SupplierRepository supplierRepository;
 	
+	Supplier supplier = null;
+	Catalog catalog = null; 
+	
 	@Before
 	void setUp() {
 		MockitoAnnotations.initMocks(this);
+		catalog = new Catalog();
+		catalog.setbName("Bajaj");
+		catalog.setbDesc("Eletrical gadgets");
+		catalog.setSkuCode(101);
+		catalog.setSkuName("Mixer");
+		supplier = new Supplier();
+		supplier.setSupplierId(1);
+		supplier.setSupplierName("Shubham");
+		catalog.setSupplier(supplier);
+		supplier.setCatalog(catalog);
 	}
 	
 	@Test
 	public void getCatalogByIdTest() {
-		Catalog catalog = new Catalog(201,"Kitchen Products", "Daily Products", "bajaj", "bajaj Eletronics", new Supplier(1,"Shubham"));
+		setUp();
 		when(catalogRepository.findById(201)).thenReturn(Optional.of(catalog));
 		assertEquals(catalog,catalogSevice.getCatalogById(201));
 	}
 	
 	@Test
 	public void getSKUNameTest() {
-		Catalog catalog = new Catalog();
-		catalog.setbName("Bajaj");
-		catalog.setbDesc("Eletrical gadgets");
-		catalog.setSkuCode(101);
-		catalog.setSkuName("Mixer");
-		Supplier supplier = new Supplier(1,"John");
-		catalog.setSupplier(supplier);
-		supplier.setCatalog(catalog);
+		setUp();
 		when(supplierRepository.findById(1)).thenReturn(Optional.of(supplier));
 		assertEquals("Mixer",supplierService.getSupplierById(1).getCatalog().getSkuName());
 	}
@@ -65,7 +71,7 @@ class SpringInventory1ApplicationTests {
 	
 	@Test
 	public void insetCatalogTest() {
-		Catalog catalog = new Catalog(201,"Kitchen Products", "Daily Products", "bajaj", "bajaj Eletronics", new Supplier(6,"Shubham"));
+		setUp();
 		when(catalogRepository.save(catalog)).thenReturn(catalog);
 		assertEquals(catalog, catalogSevice.saveCatalog(catalog));
 	}
@@ -73,7 +79,7 @@ class SpringInventory1ApplicationTests {
 	
 	@Test
 	public void insertSupplierTest() {
-		Supplier supplier = new Supplier(20, "Shubhanjali");
+		setUp();
 		when(supplierRepository.save(supplier)).thenReturn(supplier);
 		assertEquals(supplier, supplierService.insertSupplier(supplier));
 	}
