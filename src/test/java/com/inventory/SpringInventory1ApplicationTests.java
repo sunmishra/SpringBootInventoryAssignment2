@@ -1,16 +1,13 @@
 package com.inventory;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,16 +27,16 @@ class SpringInventory1ApplicationTests {
 
 	@Autowired
 	private CatalogService catalogSevice;
-	@InjectMocks
+	@Autowired
 	private SupplierService supplierService;
 	
 	@MockBean
 	private CatalogRepository catalogRepository;
 	
-	@Mock
+	@MockBean
 	private SupplierRepository supplierRepository;
 	
-	@BeforeEach
+	@Before
 	void setUp() {
 		MockitoAnnotations.initMocks(this);
 	}
@@ -51,21 +48,19 @@ class SpringInventory1ApplicationTests {
 		assertEquals(catalog,catalogSevice.getCatalogById(201));
 	}
 	
-//	@Test
-// 	public void getSKUNameTest() {
-// 	Catalog catalog = new Catalog();
-// 		catalog.setbName("Bajaj");
-// 		catalog.setbDesc("Eletrical gadgets");
-// 		catalog.setSkuCode(101);
-// 		catalog.setSkuName("Mixer");
-// 		Supplier supplier = new Supplier(1,"John");
-// 		catalog.setSupplier(supplier);
-// 		supplier.setCatalog(catalog);
-// 		//Supplier s2 = supplierService.insertSupplier(supplier);
-// 		when(supplierRepository.findById(1).get()).thenReturn(supplier);
-// 		Supplier s1 = supplierService.getSupplierById(1);
-// 		assertEquals("Mixer",supplierService.getSupplierById(1).getCatalog().getSkuName());
-// 	}
+	@Test
+	public void getSKUNameTest() {
+		Catalog catalog = new Catalog();
+		catalog.setbName("Bajaj");
+		catalog.setbDesc("Eletrical gadgets");
+		catalog.setSkuCode(101);
+		catalog.setSkuName("Mixer");
+		Supplier supplier = new Supplier(1,"John");
+		catalog.setSupplier(supplier);
+		supplier.setCatalog(catalog);
+		when(supplierRepository.findById(1)).thenReturn(Optional.of(supplier));
+		assertEquals("Mixer",supplierService.getSupplierById(1).getCatalog().getSkuName());
+	}
 
 	
 	@Test
