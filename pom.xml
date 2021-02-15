@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.inventory</groupId>
-	<artifactId>SpringBoot_inventory2</artifactId>
+	<artifactId>SpringBootInventoryAssignment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SpringBoot_inventory2</name>
 	<description>Spring Boot Project</description>

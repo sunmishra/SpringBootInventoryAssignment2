@@ -1,13 +1,11 @@
 package com.inventory.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +17,6 @@ public class Catalog {
 
 	@Id
 	@Column(length = 50)
-	// @GeneratedValue
 	private int skuCode;
 	@Column(length = 50)
 	private String skuName;
@@ -29,8 +26,8 @@ public class Catalog {
 	private String bName;
 	@Column(length = 50)
 	private String bDesc;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "supplier_id", nullable = false, unique = true)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "supplier")
 	@JsonManagedReference
 	@JsonIgnore
 	private Supplier supplier;// FK

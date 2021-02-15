@@ -1,24 +1,15 @@
 package com.inventory.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.inventory.entities.Supplier;
-import com.inventory.repository.SupplierRepository;
 
-@Service
-public class SupplierService {
-	
-	@Autowired
-	private SupplierRepository supplierRepository;
+public interface SupplierService {
 
-	public Supplier getSupplierById(int id) {
-		return supplierRepository.findById(id).get();
-	}
+	Supplier getSupplierById(int id);
+
+	Supplier insertSupplier(Supplier supplier);
 	
-	public Supplier insertSupplier(Supplier supplier) {
-		return supplierRepository.save(supplier);
-	}
-	
+	//List<String> getSKUNameList(int id, String subStr);
 
 }

@@ -1,23 +1,15 @@
 package com.inventory.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.inventory.entities.Catalog;
-import com.inventory.repository.CatalogRepository;
 
-@Service
-public class CatalogService {
-	
-	@Autowired
-	private CatalogRepository catalogRepository;
-	
-	public Catalog getCatalogById(int id) {
-		return catalogRepository.findById(id).get();
-	}
-	
-	public Catalog saveCatalog(Catalog catalog) {
-		return catalogRepository.save(catalog);
-	}
-	
+public interface CatalogService {
+
+	Catalog getCatalogById(int id);
+
+	Catalog saveCatalog(Catalog catalog);
+
+	List<String> getSKUNameList(int supplier_id, String sub_str);
+
 }

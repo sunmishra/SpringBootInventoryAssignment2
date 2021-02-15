@@ -3,6 +3,8 @@ package com.inventory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -23,7 +25,7 @@ import com.inventory.service.SupplierService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class SpringInventory1ApplicationTests {
+class SpringBootInventoryAssignmentTests {
 
 	@Autowired
 	private CatalogService catalogSevice;
@@ -37,40 +39,41 @@ class SpringInventory1ApplicationTests {
 	private SupplierRepository supplierRepository;
 	
 	Supplier supplier = null;
-	Catalog catalog = null; 
+	Catalog catalog = null;
+	Catalog catalog1 = null;
 	
 	@Before
 	void setUp() {
 		MockitoAnnotations.initMocks(this);
-		catalog = new Catalog();
-		catalog.setbName("Bajaj");
-		catalog.setbDesc("Eletrical gadgets");
-		catalog.setSkuCode(101);
-		catalog.setSkuName("Mixer");
+		
 		supplier = new Supplier();
+		supplier.setSupplierName("A");
 		supplier.setSupplierId(1);
-		supplier.setSupplierName("Shubham");
+		
+		catalog = new Catalog();
+		catalog.setSkuCode(201);
+		catalog.setbName("HaldiRam");
+		catalog.setbDesc("Tasty and Crispy eatbles");
+		catalog.setSkuName("HaldiRam Namkeen");
 		catalog.setSupplier(supplier);
-		supplier.setCatalog(catalog);
+		
+		catalog1 = new Catalog();
+		catalog.setSkuCode(202);
+		catalog1.setbName("HaldiRam");
+		catalog1.setbDesc("Tasty and Sweet eatbles");
+		catalog1.setSkuName("HaldiRam Sweets");
+		catalog1.setSupplier(supplier);
+		
+		List<Catalog> list = new ArrayList<Catalog>();
+		list.add(catalog);
+		list.add(catalog1);
+		supplier.setCatalogList(list);
 	}
 	
-	@Test
-	public void getCatalogByIdTest() {
-		setUp();
-		when(catalogRepository.findById(201)).thenReturn(Optional.of(catalog));
-		assertEquals(catalog,catalogSevice.getCatalogById(201));
-	}
-	
-	@Test
-	public void getSKUNameTest() {
-		setUp();
-		when(supplierRepository.findById(1)).thenReturn(Optional.of(supplier));
-		assertEquals("Mixer",supplierService.getSupplierById(1).getCatalog().getSkuName());
-	}
 
 	
 	@Test
-	public void insetCatalogTest() {
+	public void insertCatalogTest() {
 		setUp();
 		when(catalogRepository.save(catalog)).thenReturn(catalog);
 		assertEquals(catalog, catalogSevice.saveCatalog(catalog));
@@ -82,6 +85,15 @@ class SpringInventory1ApplicationTests {
 		setUp();
 		when(supplierRepository.save(supplier)).thenReturn(supplier);
 		assertEquals(supplier, supplierService.insertSupplier(supplier));
+	}
+	
+	@Test
+	public void getSKUNameListTest() {
+		setUp();
+		List<String> list1 = new ArrayList<String>();
+		list1.add(catalog.getSkuName());
+		when(catalogRepository.getSKUName(1, "HaldiRam")).thenReturn(list1);
+		assertEquals(list1,catalogSevice.getSKUNameList(1, "HaldiRam"));
 	}
 
 }
